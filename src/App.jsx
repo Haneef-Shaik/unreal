@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import {
-  Button,
-  Checkbox,
-  TextField,
-} from "@mui/material";
+import { Button, Checkbox, TextField } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -81,8 +77,8 @@ function App() {
 
   const [step, setStep] = useState(1);
 
-  const [enabelStep4 ,setEnableStep4] = useState(false)
-  const [enabelStep5 ,setEnableStep5] = useState(false)
+  const [enabelStep4, setEnableStep4] = useState(false);
+  const [enabelStep5, setEnableStep5] = useState(false);
 
   const [languages, setLanguages] = useState([
     { label: "English", value: "ën", checked: false },
@@ -106,12 +102,13 @@ function App() {
         o.checked = !o?.checked;
       }
       return o;
-    })
-    setEnableStep4(temp?.filter(o=>o?.checked==true)?.length ? true : false)
-    setLanguages(() =>[...temp]);
-    console.log(temp)
+    });
+    setEnableStep4(
+      temp?.filter((o) => o?.checked == true)?.length ? true : false
+    );
+    setLanguages(() => [...temp]);
+    console.log(temp);
   };
-
 
   const [btnOpts, setBtnOpts] = useState([
     { label: "Almost never", value: "ën", checked: false },
@@ -128,23 +125,30 @@ function App() {
         o.checked = !o?.checked;
       }
       return o;
-    })
-    setEnableStep5(temp?.filter(o=>o?.checked==true)?.length ? true : false)
-    setBtnOpts(() =>[...temp]);
-    console.log(temp)
+    });
+    setEnableStep5(
+      temp?.filter((o) => o?.checked == true)?.length ? true : false
+    );
+    setBtnOpts(() => [...temp]);
+    console.log(temp);
   };
 
   return (
     <div className="w-full ">
       <div className="fixed z-0  w-[100vw] h-[100vh]">
-        <video
+        {/*<video
           src="https://player.vimeo.com/external/579557350.hd.mp4?s=ed14dd0c04cfe3e554f0a04db98c85d337d8cdcc&profile_id=174&oauth2_token_id=57447761"
           muted
           loop
           autoPlay
-        />
+        />*/}
+        <iframe
+          src="http://35.183.155.167/"
+          style={{ width: "100vw", height: "100vh", zIndex: -1 }}
+          title="W3Schools Free Online Web Tutorials"
+        ></iframe>
       </div>
-      <div className="absolute w-full h-full">
+      <div className="absolute w-full h-full z-10">
         <div className="relative h-full w-full flex flex-col justify-center  ">
           <div className="absolute top-0 font-bold text-white flex justify-between w-full p-4">
             <div className="  rounded-full">
@@ -163,7 +167,7 @@ function App() {
               )}
             </div>
             <div className="  rounded-full">
-              {(step === 3 && enabelStep4 )|| (step === 4 && enabelStep5 ) ? (
+              {(step === 3 && enabelStep4) || (step === 4 && enabelStep5) ? (
                 <ChevronRightIcon
                   fontSize="large"
                   style={{
@@ -257,7 +261,7 @@ function App() {
                             id="login_verify_otp"
                             style={{
                               height: "50px",
-                              width: "70px",
+                              width: "62px",
                               background:
                                 "linear-gradient(197deg, #F17CD0 -51.02%, #6749CD 88.98%)",
                               borderRadius: "25px",
@@ -276,8 +280,8 @@ function App() {
                 </>
               ) : step === 3 ? (
                 <>
-                  <div className="items-center ">
-                    <div className="text-[18px] text-black w-full ">
+                  <div className="">
+                    <div className="text-[18px] text-black w-full">
                       Lorem ipsum dolor sit amet, consectetur Vestibulum quis
                       nulla sit amet purus commodo
                     </div>
@@ -292,19 +296,26 @@ function App() {
                           return (
                             <div
                               key={index}
-                              className="flex justify-between items-center pb-2 border-b border-gray-700 "
+                              className="flex justify-between items-center pb-2 border-b border-[#00000050] "
                               onClick={() => {
                                 onLangselect(index);
                               }}
                             >
-                              <div className="">{item?.label}</div>
-                              <div>
-                                {item?.checked ? (
-                                  checkedIcon
-                                ) : (
-                                  ""
-                                )}
+                              <div
+                                style={{
+                                  color: "#000",
+                                  fontFeatureSettings: "clig off, 'liga' off",
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                  fontStyle: "normal",
+                                  fontWeight: 400,
+                                  lineHeight: "normal",
+                                  letterSpacing: "0.025px",
+                                }}
+                              >
+                                {item?.label}
                               </div>
+                              <div>{item?.checked ? checkedIcon : ""}</div>
                             </div>
                           );
                         })}
@@ -321,33 +332,33 @@ function App() {
                   </div>
                   <div>
                     <div className="grid gap-2">
-                      {
-                        btnOpts?.map((o,index)=>{
-                          return (
-                            <div
+                      {btnOpts?.map((o, index) => {
+                        return (
+                          <div
                             key={index}
-                        style={{
-                          borderRadius: "20px",
-                          minWidth: "150px",
-                          fontFamily: "Poppins",
-                          fontWeight: "400",
-                          background: o?.checked
-                            ? "linear-gradient(197deg, #F17CD0 -51.02%, #6749CD 88.98%)"
-                            : "",
-                          filter:
-                            "drop-shadow(0px 8px 16px rgba(241, 124, 208, 0.10))",
-                          border: "1px solid #00000090",
-                          textTransform: "none !important",
-                        }}
-                        className="p-2 shadow"
-                        onClick={() => {onBtnselect(index)}}
-                      >
-                        {o?.label}
-                      </div>
-                          )
-                        })
-                      }
-                      
+                            style={{
+                              borderRadius: "20px",
+                              minWidth: "150px",
+                              fontFamily: "Poppins",
+                              fontWeight: o?.checked ? "500" : "400",
+                              color: o?.checked ? "White" : "",
+                              background: o?.checked
+                                ? "linear-gradient(197deg, #F17CD0 -51.02%, #6749CD 88.98%)"
+                                : "",
+                              filter:
+                                "drop-shadow(0px 8px 16px rgba(241, 124, 208, 0.10))",
+                              outline: "2px solid #00000016",
+                              textTransform: "none !important",
+                            }}
+                            className="p-2 shadow"
+                            onClick={() => {
+                              onBtnselect(index);
+                            }}
+                          >
+                            {o?.label}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </>
