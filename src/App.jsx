@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import backgroundImg from "./assets/videoBg.mp4";
 import {
   Button,
   Checkbox,
@@ -80,7 +79,7 @@ const checkedIcon = (
 function App() {
   const [terms_accepted, set_terms_accepted] = useState(false);
 
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
 
   const [enabelStep4 ,setEnableStep4] = useState(false)
   const [enabelStep5 ,setEnableStep5] = useState(false)
