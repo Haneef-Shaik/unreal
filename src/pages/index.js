@@ -88,7 +88,7 @@ function Home() {
   const navigate = useRouter()
   const [terms_accepted, set_terms_accepted] = useState(false);
 
-  const [step, setStep] = useState(7);
+  const [step, setStep] = useState(1);
   const [otp,setOtp] = useState("")
   const [value, setValue] = useState()
 
