@@ -57,3 +57,14 @@ video{
 .MuiInput-root {
   border-bottom: 1px solid rgba(0, 0, 0, 0.16) !important;
 }
+.rmc-picker-item{
+  color: #000 !important;
+}
+.rmc-picker-indicator{
+  border-top:1px solid#000 !important ;
+  border-bottom:1px solid #000 !important ;
+}
+.rmc-picker-mask{
+  background: none !important;
+  background-image: none !important;
+}
