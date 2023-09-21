@@ -88,7 +88,7 @@ function Home() {
   const navigate = useRouter()
   const [terms_accepted, set_terms_accepted] = useState(false);
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const [otp,setOtp] = useState("")
   const [value, setValue] = useState()
 
@@ -380,7 +380,7 @@ function Home() {
                       nulla sit amet purus commodo
                     </div>
                   </div>
-                  <div>
+                  <div className="border border-gray-500 p-2 rounded-full" >
                   <PhoneInput
                   defaultCountry="IN"
       placeholder="Enter phone number"

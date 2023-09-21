@@ -68,3 +68,6 @@ video{
   background: none !important;
   background-image: none !important;
 }
+input{
+  background: none;
+}
