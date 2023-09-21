@@ -375,10 +375,10 @@ function Home() {
               ) : step === 4 ? (
                 <>
                   <div className=" flex items-center gap-2 flex justify-center ">
-                    <div className="text-[14px] text-black leading-1 ">
+                    <p className="text-[14px] text-black leading-1 ">
                       Lorem ipsum dolor sit amet, consectetur Vestibulum quis
                       nulla sit amet purus commodo
-                    </div>
+                    </p>
                   </div>
                   <div className="border border-gray-500 p-2 rounded-full" >
                   <PhoneInput
