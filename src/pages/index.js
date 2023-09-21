@@ -105,7 +105,7 @@ function Home() {
   const navigate = useRouter()
   const [terms_accepted, set_terms_accepted] = useState(false);
 
-  const [step, setStep] = useState(12);
+  const [step, setStep] = useState(1);
   const [otp,setOtp] = useState("");
   const [value, setValue] = useState();
   const [textAreavalue, setTextAreavalue] = useState("");
@@ -249,7 +249,7 @@ const formats = [
                     borderRadius: "50%",
                   }}
                   onClick={() => {
-                    if(step ==11)
+                    if(step ==12)
                     {
                       navigate.push("/call")
                     }
