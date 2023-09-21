@@ -223,9 +223,7 @@ function Home() {
             
           >
             <div
-              className={
-                "p-4 rounded-xl grid gap-4 min-w-[90vw] shadow-xl"
-              }
+              className={"p-4 rounded-xl grid gap-4 min-w-[90vw] max-w-[100vw] shadow-xl"}
               style={{
                       background: "rgba(255,255,255,0.2)",
                       backdropFilter: "blur(15px)",
@@ -374,7 +372,7 @@ function Home() {
                 </>
               ) : step === 4 ? (
                 <>
-                  <div className=" flex items-center gap-2 flex justify-center ">
+                  <div className=" flex items-center gap-2 flex justify-center break-words w-[90%]">
                     <p className="text-[14px] text-black leading-1 ">
                       Lorem ipsum dolor sit amet, consectetur Vestibulum quis
                       nulla sit amet purus commodo
