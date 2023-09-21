@@ -31,7 +31,6 @@ body {
 *{
   margin: 0;
   padding: 0;
-  text-align: center;
   font-family: Poppins;
   font-size: 18px;
   font-style: normal;
@@ -70,4 +69,15 @@ video{
 }
 input{
   background: none;
+}
+.quill{
+  width: 80vw;
+  border-radius: 10px;
+  overflow: hidden;
+  /* height: 200px;
+  overflow: scroll; */
+}
+.ql-editor{
+  height: 200px;
+  overflow-y: scroll;
 }

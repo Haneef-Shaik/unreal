@@ -6,6 +6,7 @@ export default function Call() {
   return <div className="w-[100vw] h-[100vh] "  >
    <div className="absolute -z-10 w-[100vw] h-[100vh]">
         <Image
+        alt="#"
             src="/bg-2.png"
             layout="fill"
             objectFit="cover"
@@ -15,6 +16,8 @@ export default function Call() {
 <div className="" >
                     <div className="absolute top-[10%] right-4 p-2 ">
                       <Image className=""
+        alt="#"
+
                         width={100}
                         height={150}
                         objectFit="cover"

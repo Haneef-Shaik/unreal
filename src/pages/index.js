@@ -8,6 +8,8 @@ import backgroundImg from "../../public/bg.png";
 import backgroundImg2 from "../../public/bg-2.png";
 import Link from "next/link";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
+import AddIcon from '@mui/icons-material/Add';
+import CheckIcon from '@mui/icons-material/Check';
 import enUs from 'rmc-date-picker/lib/locale/en_US';
 import DatePicker from "rmc-date-picker";
 import "rmc-picker/assets/index.css";
@@ -17,8 +19,16 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 // #region unreal render imports
 import {TextareaAutosize} from "@mui/base/TextareaAutosize";
+// import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation";
-
+import AudioPlayer from "@/components/AudioPlayer";
+import VideoPlayer from "@/components/VideoPlayer";
+import { MicListen } from "@/components/MicListen";
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {	
+	ssr: false,
+	loading: () => <p>Loading ...</p>,
+	})
 const checkedIcon = (
   <svg
     width="36"
@@ -85,13 +95,21 @@ const checkedIcon = (
 );
 
 function Home() {
+  const [isBrowser,setIsBrowser] =useState(false);
+  useEffect(()=>{
+    if(typeof document !== 'undefined') {
+      console.log(document.location.href);
+      setIsBrowser(true)
+  }
+  },[])
   const navigate = useRouter()
   const [terms_accepted, set_terms_accepted] = useState(false);
 
-  const [step, setStep] = useState(4);
-  const [otp,setOtp] = useState("")
-  const [value, setValue] = useState()
-
+  const [step, setStep] = useState(12);
+  const [otp,setOtp] = useState("");
+  const [value, setValue] = useState();
+  const [textAreavalue, setTextAreavalue] = useState("");
+  const [date,setDate] = useState(new Date())
   const [enabelStep4, setEnableStep4] = useState(false);
   const [enabelStep5, setEnableStep5] = useState(false);
 
@@ -110,6 +128,41 @@ function Home() {
     { label: "Telugu", value: "hind", checked: false },
     { label: "Tamil", value: "hind", checked: false },
   ]);
+
+  
+const modules = {
+  toolbar: [
+    // [{ header: '1' }, { header: '2' }, { font: [] }],
+    // [{ size: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+  ],
+  clipboard: {
+    matchVisual: true,
+  },
+}
+const formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'image',
+  'video',
+]
+
 
   const onLangselect = (index) => {
     console.log(index);
@@ -149,11 +202,15 @@ function Home() {
     console.log(temp);
   };
 
+  const handeldateChange = (value) =>{
+    setDate(value)
+  }
+
   return (
     <div className="w-full ">
       <div className="fixed z-0  w-[100vw] h-[100vh]">
         <Image
-          src={step < 5 ? backgroundImg : backgroundImg2}
+          src={backgroundImg}
           alt="Img"
           className="w-[100vw] h-[100vh]"
         />
@@ -192,7 +249,7 @@ function Home() {
                     borderRadius: "50%",
                   }}
                   onClick={() => {
-                    if(step ==10 )
+                    if(step ==11)
                     {
                       navigate.push("/call")
                     }
@@ -223,12 +280,17 @@ function Home() {
             
           >
             <div
-              className={"p-4 rounded-xl grid gap-4 min-w-[90vw] max-w-[100vw] shadow-xl"}
+              className={
+                "p-4 rounded-xl grid gap-4 min-w-[90vw] max-w-[95vw] shadow-xl"
+              }
               style={{
                       background: "rgba(255,255,255,0.2)",
                       backdropFilter: "blur(15px)",
                       color:"#000",
-                      fontFamily: "Poppins"
+                      fontFamily: "Poppins",
+                      textAlign:"center",
+                      position:"relative",
+                      overflowX:"hidden"
                     }
                   
               }
@@ -372,18 +434,21 @@ function Home() {
                 </>
               ) : step === 4 ? (
                 <>
-                  <div className=" flex items-center gap-2 flex justify-center break-words w-[90%]">
-                    <p className="text-[14px] text-black leading-1 ">
+                  <div className=" flex items-center gap-2 justify-center w-[300px] ">
+                    <div className="text-[14px] text-black leading-1 ">
                       Lorem ipsum dolor sit amet, consectetur Vestibulum quis
                       nulla sit amet purus commodo
-                    </p>
+                    </div>
                   </div>
-                  <div className="border border-gray-500 p-2 rounded-full w-[80%] " >
+                  <div className="border border-gray-200 p-2 rounded-full bg-[rgba(255,255,255,0.4)] w-[90%]" >
                   <PhoneInput
                   defaultCountry="IN"
-      placeholder="Enter phone number"
-      value={value}
-      onChange={setValue}/>
+                  placeholder="Enter phone number"
+                  value={value}
+                  style={{
+                    width:"85vw"
+                  }}
+                  onChange={setValue}/>
                   </div>
                 </>
               ) : step === 9 ? (
@@ -441,7 +506,10 @@ function Home() {
                   <div>
                   <DatePicker
                   rootNativeProps={{'data-xx': 'yy'}}
+                  date={date}
+                  onDateChange={handeldateChange}
         mode="date"
+        minDate={new Date(1900, 1, 1, 0, 0, 0)}
         locale={enUs}
         formatMonth={(month, currentDate) => {
           console.info(month,"--month")
@@ -566,24 +634,72 @@ function Home() {
                 </>
               ) : step === 5 ? (
                 <>
-                  <div className=" flex items-center gap-2 flex justify-center ">
+                  <div className=" flex items-center gap-2 flex justify-center max-w-[300px] break-word">
                     <div className="text-[14px] text-black leading-1 ">
                       Lorem ipsum dolor sit amet, consectetur Vestibulum quis
                       nulla sit amet purus commodo
                     </div>
                   </div>
-                  <div>
-                  <TextareaAutosize
+                  <div className="w-full" >
+                  {/* <TextareaAutosize
         className="bg-[rgba(255,255,255,0.2)] w-[90%] text-sm leading-5 p-3 rounded-lg rounded-br-none shadow-md shadow-slate-100 text-left border border-solid border-slate-600"
         aria-label="Demo input"
         placeholder="Empty"
         minRows={3}
-      />
+      /> */}
+      { isBrowser ?
+      <QuillNoSSRWrapper 
+      modules={modules}
+      QuillNoSSRWrapper="snow" 
+      formats={formats}
+      value={textAreavalue} 
+      onChange={setTextAreavalue} /> : <></>
+}
                   </div>
                 </>
               ) : step === 10 ? (
                 <>
-                  <div className=" flex items-center gap-2 flex justify-center ">
+                  <div className=" flex items-center gap-2  ">
+                    <div className="text-[18px] text-black w-full ">
+                      Lorem ipsum dolor sit amet, consectetur Vestibulum quis
+                      nulla sit amet purus commodo
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap gap-2 ">
+                      {btnOpts?.map((o, index) => {
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              fontFamily: "Poppins",
+                              width:"max-content",
+                              fontWeight: o?.checked ? "500" : "400",
+                              color: o?.checked ? "White" : "#2D2D2D",
+                              background: o?.checked
+                                ? "linear-gradient(197deg, #F17CD0 -51.02%, #6749CD 88.98%)"
+                                : "",
+                              filter:
+                                "drop-shadow(0px 8px 16px rgba(241, 124, 208, 0.10))",
+                                border:o?.checked ? "none" : "1px solid #00000020",
+                              textTransform: "none !important",
+                            }}
+                            className="p-2 shadow flex items-center gap-1 rounded-full text-sm"
+                            onClick={() => {
+                              onBtnselect(index);
+                            }}
+                          >
+                            {o?.label}
+                            {o?.checked ? <CheckIcon /> : <AddIcon />}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              ) : step === 11 ? (
+                <>
+                  <div className=" flex items-center gap-2  ">
                     <div className="text-[18px] text-black w-full ">
                       Lorem ipsum dolor sit amet, consectetur Vestibulum quis
                       nulla sit amet purus commodo
@@ -614,13 +730,18 @@ function Home() {
                             }}
                           >
                             {o?.label}
+                            
                           </div>
                         );
                       })}
                     </div>
                   </div>
                 </>
-              ) : (
+              ) : step ===12 ? (<>
+                <AudioPlayer url={"https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3"}  />
+                <VideoPlayer />
+                <MicListen />
+              </>): (
                 <></>
               )}
             </div>
