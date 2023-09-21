@@ -380,7 +380,7 @@ function Home() {
                       nulla sit amet purus commodo
                     </p>
                   </div>
-                  <div className="border border-gray-500 p-2 rounded-full" >
+                  <div className="border border-gray-500 p-2 rounded-full w-[80%] " >
                   <PhoneInput
                   defaultCountry="IN"
       placeholder="Enter phone number"
